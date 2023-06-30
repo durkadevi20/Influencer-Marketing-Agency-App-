@@ -1,0 +1,30 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+const InfluencerList = () => {
+  const [influencers, setInfluencers] = useState([]);
+
+  useEffect(() => {
+    // Fetch data from the API
+    axios.get('https://jsonplaceholder.typicode.com/users')
+      .then((response) => {
+        setInfluencers(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching influencers:', error);
+      });
+  }, []);
+
+  return (
+    <div>
+      <h2>Influencers</h2>
+      <ul>
+        {influencers.map((influencer) => (
+          <li key={influencer.id}>{influencer.name}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default InfluencerList;
