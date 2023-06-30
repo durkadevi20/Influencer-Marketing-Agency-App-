@@ -1,0 +1,30 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+const CampaignList = () => {
+  const [campaigns, setCampaigns] = useState([]);
+
+  useEffect(() => {
+    // Fetch data from the API
+    axios.get('https://jsonplaceholder.typicode.com/posts')
+      .then((response) => {
+        setCampaigns(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching campaigns:', error);
+      });
+  }, []);
+
+  return (
+    <div>
+      <h2>Campaigns</h2>
+      <ul>
+        {campaigns.map((campaign) => (
+          <li key={campaign.id}>{campaign.title}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default CampaignList;
